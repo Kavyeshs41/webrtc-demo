@@ -14,7 +14,7 @@ let log = msg => {
 }
 
 pc.ontrack = function(event) {
-  log(event.streams.length + ' track is delivered')
+  // log(event.streams.length + ' track is delivered')
   var el = document.createElement(event.track.kind)
   el.srcObject = event.streams[0]
   el.muted = true
@@ -24,7 +24,7 @@ pc.ontrack = function(event) {
   document.getElementById('remoteVideos').appendChild(el)
 }
 
-pc.oniceconnectionstatechange = e => log(pc.iceConnectionState)
+pc.oniceconnectionstatechange = e => console.log(pc.iceConnectionState)
 
 
 
@@ -45,7 +45,7 @@ function getCodecInfo() {
     try {
       data = JSON.parse(data);
       if (data.length > 1) {
-        log('add audio Transceiver')
+        // log('add audio Transceiver')
         pc.addTransceiver('audio', {
           'direction': 'sendrecv'
         })
@@ -54,7 +54,7 @@ function getCodecInfo() {
       console.log(e);
     } finally {
 
-      log('add video Transceiver')
+      // log('add video Transceiver')
       pc.addTransceiver('video', {
         'direction': 'sendrecv'
       });
@@ -68,7 +68,7 @@ function getCodecInfo() {
           sendChannel.send('ping');
         }, 1000)
       }
-      sendChannel.onmessage = e => log(`Message from DataChannel '${sendChannel.label}' payload '${e.data}'`);
+      sendChannel.onmessage = e => console.log(`Message from DataChannel '${sendChannel.label}' payload '${e.data}'`);
     }
   });
 }
